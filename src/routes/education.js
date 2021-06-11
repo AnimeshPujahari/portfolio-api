@@ -1,34 +1,29 @@
 const express = require('express');
 
+//Controllers
 const {
     createEducation,
     addEducation,
+    fetchEducation,
     updateEducation,
-    getEducation,
-    deleteAllEducation,
-    deleteEducation
-} = require('../controller/education');
+    deleteEducation,
+    deleteAllEducation
+} = require('../controllers/education');
 
-const auth = require('../middlewares/userAuth');
+const auth = require('../auth/authenticate');
 
 const router = express.Router();
 
-//To create education entry
 router.post('/education/create' , auth , createEducation);
 
-//To add more details
 router.patch('/education/add' , auth , addEducation);
 
-//To update a education details
+router.get('/education/fetch' , auth , fetchEducation);
+
 router.patch('/education/update/:id' , auth , updateEducation);
 
-//To get education details
-router.get('/education/fetch' , auth , getEducation);
-
-//To delete all education details
-router.delete('/education/delete' , auth , deleteAllEducation);
-
-//To delete a particular education
 router.delete('/education/delete/:id' , auth , deleteEducation);
+
+router.delete('/education/delete' , auth , deleteAllEducation);
 
 module.exports = router;
